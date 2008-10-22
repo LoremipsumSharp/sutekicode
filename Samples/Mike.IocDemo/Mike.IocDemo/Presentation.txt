@@ -1,0 +1,68 @@
+﻿introduction
+------------
+
+* ALT.NET is all about improving programming practices, this is more about patterns and practices than tools. Inversion of Control is a core object oriented design pattern. Leveraging it can help you design component oriented software.
+
+* What do we mean by 'component oriented software'?
+
+* Why is it good to design software like this?
+
+* Part of SOLID (Single responsibility principle, Open Closed Principle, Liskov substitution principle, Interface segregation principle, Dependency inversion principle)
+
+
+
+show non-IoC code
+-----------------
+
+* Show default reporter, ask what problems might be.
+	- Tightly coupled to ReportBuilder and EmailReportSender
+	- Can't test
+	- Can't use alternative implementations without recoding (Open Closed Principle)
+	- Responsible for controlling builder and sender lifecycle (Single Responsibility Principle)
+
+* Show Testing IoC reporter with mocks.
+
+* Show IoC reporter with simple dependency injection.
+
+basic configuration
+-------------------
+
+* Show basic IoC container usage
+
+* Show project references. Note Windsor/MicroKernel/DynamicProxy2
+
+* Show XML config
+
+* Show named components
+
+* Show property configuration
+
+* Demonstrate Lifestyles 
+
+* Show instance registration
+
+patterns
+--------
+
+* Show decorator **************
+
+* Show abstract factory
+
+* Show composite
+
+generics
+--------
+
+* Show generic component resolution
+
+extension points
+----------------
+
+* Type selector
+
+* Activator
+
+Common Service Locator (CSL)
+----------------------------
+
+* Service Locator
