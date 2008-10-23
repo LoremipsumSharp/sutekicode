@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "References", "References", 
 		References\Castle.DynamicProxy2.dll = References\Castle.DynamicProxy2.dll
 		References\Castle.MicroKernel.dll = References\Castle.MicroKernel.dll
 		References\Castle.Windsor.dll = References\Castle.Windsor.dll
+		References\nunit.framework.dll = References\nunit.framework.dll
 		References\Rhino.Mocks.dll = References\Rhino.Mocks.dll
 	EndProjectSection
 EndProject
