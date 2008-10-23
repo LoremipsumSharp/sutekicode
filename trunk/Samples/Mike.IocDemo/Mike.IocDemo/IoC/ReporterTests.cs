@@ -1,10 +1,13 @@
 using Mike.IocDemo.Model;
+using NUnit.Framework;
 using Rhino.Mocks;
 
 namespace Mike.IocDemo.IoC
 {
+    [TestFixture]
     public class ReporterTests
     {
+        [Test]
         public void SendReports_ShouldSendSomeReports()
         {
             // create mocks
