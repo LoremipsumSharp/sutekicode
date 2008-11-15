@@ -12,7 +12,7 @@ namespace Mike.IocDemo.Model
 
     public class ReportSendTypeSelector : IHandlerSelector 
     {
-        private SenderType senderType;
+        private readonly SenderType senderType;
 
         public ReportSendTypeSelector(SenderType senderType)
         {
