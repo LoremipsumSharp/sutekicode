@@ -1,4 +1,4 @@
-﻿introduction
+﻿Introduction
 ------------
 
 * ALT.NET is all about improving programming practices, this is more about patterns and practices than tools. Inversion of Control is a core object oriented design pattern. Leveraging it can help you design component oriented software.
@@ -58,7 +58,7 @@ generics
 extension points
 ----------------
 
-* Type selector
+* Type selector (explain how this is useful for multi-tennanted apps)
 
 * Activator
 
