@@ -7,7 +7,7 @@ namespace Mike.IocDemo.Default
         public void SendReports()
         {
             var reportBuilder = new ReportBuilder();
-            var reportSender = new EmailReportSender();
+            var reportSender = new SmsReportSender();
             var logger = new Logger();
 
             var reports = reportBuilder.CreateReports();
