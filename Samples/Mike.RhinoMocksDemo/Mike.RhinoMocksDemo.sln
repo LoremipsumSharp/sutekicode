@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mike.RhinoMocksDemo", "Mike.RhinoMocksDemo\Mike.RhinoMocksDemo.csproj", "{8A8FCFB8-784A-4A1D-BA49-294B470D920C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mike.RhinoMocksDemo.Tests", "Mike.RhinoMocksDemo.Tests\Mike.RhinoMocksDemo.Tests.csproj", "{E0B34388-88CA-4DCE-9F58-04ADC05BE769}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A8FCFB8-784A-4A1D-BA49-294B470D920C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A8FCFB8-784A-4A1D-BA49-294B470D920C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A8FCFB8-784A-4A1D-BA49-294B470D920C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A8FCFB8-784A-4A1D-BA49-294B470D920C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0B34388-88CA-4DCE-9F58-04ADC05BE769}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0B34388-88CA-4DCE-9F58-04ADC05BE769}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0B34388-88CA-4DCE-9F58-04ADC05BE769}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0B34388-88CA-4DCE-9F58-04ADC05BE769}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
