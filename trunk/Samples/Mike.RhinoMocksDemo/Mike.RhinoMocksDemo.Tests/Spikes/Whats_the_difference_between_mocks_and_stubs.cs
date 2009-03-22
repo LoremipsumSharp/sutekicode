@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using Rhino.Mocks;
-using Rhino.Mocks.Exceptions;
 
 namespace Mike.RhinoMocksDemo.Tests.Spikes
 {
@@ -99,22 +98,5 @@ namespace Mike.RhinoMocksDemo.Tests.Spikes
         {
             stub.AssertWasCalled(s => s.DoSomething(null));
         }
-    }
-
-    public class Thing : IThing
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public IThing DoSomething(IThing thing)
-        {
-            return thing;
-        }
-    }
-
-    public interface IThing
-    {
-        int Id { get; set; }
-        string Name { get; set; }
-        IThing DoSomething(IThing thing);
     }
 }
