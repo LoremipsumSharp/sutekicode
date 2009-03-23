@@ -6,6 +6,7 @@ namespace Mike.RhinoMocksDemo.Tests.Spikes
     {
         int Id { get; set; }
         string Name { get; set; }
+
         IThing DoSomething(IThing thing);
         string SomeStringOperation(string value);
         int SomeIntOperation(int value);

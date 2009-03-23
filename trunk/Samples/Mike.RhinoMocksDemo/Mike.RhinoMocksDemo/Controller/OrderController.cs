@@ -32,5 +32,7 @@ namespace Mike.RhinoMocksDemo.Controller
 
             customer.CurrentOrder.AddOrderLine(quantity, product);
         }
+
+        // lots of other stuff here
     }
 }

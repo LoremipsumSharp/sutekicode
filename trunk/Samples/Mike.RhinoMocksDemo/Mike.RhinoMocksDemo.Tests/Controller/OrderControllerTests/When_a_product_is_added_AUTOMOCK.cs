@@ -18,8 +18,6 @@ namespace Mike.RhinoMocksDemo.Tests.Controller.OrderControllerTests
         private Customer customer;
         private Product product;
 
-        private IDisposable playback;
-
         [SetUp]
         public void SetUp()
         {
@@ -36,22 +34,17 @@ namespace Mike.RhinoMocksDemo.Tests.Controller.OrderControllerTests
             product = new Product {Id = productId};
 
             orderController = container.Create<OrderController>();
-
+            
             using (mocks.Record())
             {
-                    container.Resolve<IRepository<Customer>>().Stub(r => r.GetById(customerId)).Return(customer);
-                    container.Resolve<IRepository<Product>>().Stub(r => r.GetById(productId)).Return(product);
+                container.Resolve<IRepository<Customer>>().Stub(r => r.GetById(customerId)).Return(customer);
+                container.Resolve<IRepository<Product>>().Stub(r => r.GetById(productId)).Return(product);
             }
 
-            playback = mocks.Playback();
-
-            orderController.AddProduct(customerId, productId, quantity);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            playback.Dispose();
+            using (mocks.Playback())
+            {
+                orderController.AddProduct(customerId, productId, quantity);
+            }
         }
 
         [Test]

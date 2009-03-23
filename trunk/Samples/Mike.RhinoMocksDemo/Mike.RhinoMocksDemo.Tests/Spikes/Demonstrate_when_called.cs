@@ -31,5 +31,20 @@ namespace Mike.RhinoMocksDemo.Tests.Spikes
 
             Assert.That(argument.Name, Is.EqualTo("Hello"));
         }
+
+        [Test]
+        public void You_can_get_the_MethodInfo()
+        {
+            var thing = MockRepository.GenerateStub<IThing>();
+
+            string methodName = null;
+
+            thing.Stub(x => x.DoSomething(Arg<IThing>.Is.Anything))
+                .WhenCalled(invocation => methodName = invocation.Method.Name);
+
+            thing.DoSomething(new Thing { Name = "Hello" });
+
+            Assert.That(methodName, Is.EqualTo("DoSomething"));
+        }
     }
 }

@@ -28,7 +28,21 @@ namespace Mike.RhinoMocksDemo.Tests.Spikes
         }
 
         [Test]
+        public void Basic_argument_constraint_is_not_triggered_if_argument_does_not_match()
+        {
+            mock.Expect(m => m.DoSomething(thing1)).Return(thing2);
+            Assert.That(mock.DoSomething(thing2), Is.Not.SameAs(thing2));
+        }
+
+        [Test]
         public void Basic_argument_constraint_with_arg_T()
+        {
+            mock.Expect(m => m.DoSomething(Arg<IThing>.Is.Equal(thing1))).Return(thing2);
+            Assert.That(mock.DoSomething(thing1), Is.SameAs(thing2));
+        }
+
+        [Test]
+        public void Basic_argument_constraint_with_arg()
         {
             mock.Expect(m => m.DoSomething(Arg.Is(thing1))).Return(thing2);
             Assert.That(mock.DoSomething(thing1), Is.SameAs(thing2));
@@ -85,26 +99,5 @@ namespace Mike.RhinoMocksDemo.Tests.Spikes
             Assert.That(mock.DoSomething(mikeThing), Is.SameAs(thing1));
             Assert.That(mock.DoSomething(jonThing), Is.Null);
         }
-
-        // TODO: Why doesn't this work?
-        [Test]
-        public void Use_List_to_match_on_a_possible_list()
-        {
-            var matches = new[] {thing1, thing2};
-            var other = new OtherThing();
-
-            mock.Expect(m => m.DoSomething(Arg<IThing>.List.OneOf(matches))).Return(thing1);
-
-            Assert.That(mock.DoSomething(thing1), Is.SameAs(thing1));
-            Assert.That(mock.DoSomething(thing2), Is.SameAs(thing1));
-            Assert.That(mock.DoSomething(other), Is.Null);
-        }
-
-        [Test]
-        public void Use_List_to_match_enumerable_args()
-        {
-            
-        }
-
     }
 }
