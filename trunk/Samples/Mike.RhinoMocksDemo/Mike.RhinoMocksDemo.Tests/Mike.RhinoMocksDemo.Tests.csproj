@@ -66,13 +66,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\OrderControllerTests\When_a_product_is_added.cs" />
+    <Compile Include="Controller\OrderControllerTests\When_a_product_is_added_AUTOMOCK.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Spikes\Compare_record_playback_to_arrange_act_assert.cs" />
     <Compile Include="Spikes\Demonstrate_argument_constrains.cs" />
     <Compile Include="Spikes\Demonstrate_NUnit_TestDriven_NET.cs" />
+    <Compile Include="Spikes\Demonstrate_when_called.cs" />
     <Compile Include="Spikes\IThing.cs" />
     <Compile Include="Spikes\OtherThing.cs" />
     <Compile Include="Spikes\Thing.cs" />
+    <Compile Include="Spikes\ThingBase.cs" />
+    <Compile Include="Spikes\ThingExtensions.cs" />
     <Compile Include="Spikes\Whats_the_difference_between_mocks_and_stubs.cs" />
+    <Compile Include="Spikes\What_can_you_mock.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mike.RhinoMocksDemo\Mike.RhinoMocksDemo.csproj">

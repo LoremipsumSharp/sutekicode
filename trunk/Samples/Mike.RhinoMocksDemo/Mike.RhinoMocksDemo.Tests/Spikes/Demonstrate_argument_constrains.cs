@@ -54,7 +54,7 @@ namespace Mike.RhinoMocksDemo.Tests.Spikes
         }
 
         [Test]
-        public void Is_not_null_matches_null()
+        public void Is_not_null_matches()
         {
             mock.Expect(m => m.DoSomething(Arg<IThing>.Is.NotNull)).Return(thing1);
 
