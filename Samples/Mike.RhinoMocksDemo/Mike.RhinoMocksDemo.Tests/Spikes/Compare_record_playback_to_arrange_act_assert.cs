@@ -48,6 +48,22 @@ namespace Mike.RhinoMocksDemo.Tests.Spikes
         }
 
         [Test]
+        public void Or_use_expectations_as_before()
+        {
+            // arrange
+            var mock = MockRepository.GenerateMock<IThing>();
+            var thing1 = new Thing();
+
+            mock.Expect(m => m.DoSomething(thing1)).Return(null);
+
+            // act
+            mock.DoSomething(thing1);
+
+            // assert
+            mock.VerifyAllExpectations();
+        }
+
+        [Test]
         public void Show_different_kinds_of_mocks()
         {
             var strictMock = mocks.StrictMock<IThing>();

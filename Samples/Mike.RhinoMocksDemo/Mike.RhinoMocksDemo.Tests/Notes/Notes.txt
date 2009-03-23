@@ -1,3 +1,28 @@
 Notes
 -----
 
+Mike Hadlow
+http://mikehadlow.blogspot.com/
+
+1. Rhino Mocks Intro:
+	- By Uber Developer Ayende
+	- Now at version 3.5
+	- today mostly about new 3.5 features
+	
+2. Mocking basics
+	- To do mocking, you need to do dependency injection
+	- TDD is all about design, if you're having trouble change your design
+	
+3. Quick overview of my setup: NUnit + TestDriven.NET
+
+4. What can you mock?
+
+5. What the difference between a mock and a stub?
+
+6. New features 1: Arrange Act Assert
+
+7. New features 2: Argument Constraints
+
+8. New features 3: WhenCalled
+
+9. Automocking 
