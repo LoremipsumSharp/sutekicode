@@ -6,7 +6,8 @@ namespace Mike.RhinoMocksDemo.Tests.Spikes
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IThing DoSomething(IThing thing)
+
+        public virtual IThing DoSomething(IThing thing)
         {
             return thing;
         }

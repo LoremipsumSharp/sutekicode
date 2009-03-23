@@ -1,14 +1,14 @@
+using System;
 using Mike.RhinoMocksDemo.Controller;
 using Mike.RhinoMocksDemo.Model;
 using Mike.RhinoMocksDemo.Repository;
-using Mike.RhinoMocksDemo.Service;
 using NUnit.Framework;
 using Rhino.Mocks;
 
 namespace Mike.RhinoMocksDemo.Tests.Controller.OrderControllerTests
 {
     [TestFixture]
-    public class When_a_product_is_added
+    public class When_a_product_is_added_AUTOMOCK
     {
         private OrderController orderController;
         private const int customerId = 44;
@@ -18,28 +18,40 @@ namespace Mike.RhinoMocksDemo.Tests.Controller.OrderControllerTests
         private Customer customer;
         private Product product;
 
+        private IDisposable playback;
+
         [SetUp]
         public void SetUp()
         {
+            var mocks = new MockRepository();
+            var container = new Rhino.Testing.AutoMocking.AutoMockingContainer(mocks);
+            container.Initialize();
+
             customer = new Customer
             {
                 Id = customerId,
                 CurrentOrder = new Order()
             };
 
-            product = new Product { Id = productId };
+            product = new Product {Id = productId};
 
-            var customerRepository = MockRepository.GenerateStub<IRepository<Customer>>();
-            var productRepository = MockRepository.GenerateStub<IRepository<Product>>();
-            var countryRepository = MockRepository.GenerateStub<IRepository<Country>>();
-            var userService = MockRepository.GenerateStub<IUserService>();
+            orderController = container.Create<OrderController>();
 
-            customerRepository.Stub(r => r.GetById(customerId)).Return(customer);
-            productRepository.Stub(r => r.GetById(productId)).Return(product);
+            using (mocks.Record())
+            {
+                    container.Resolve<IRepository<Customer>>().Stub(r => r.GetById(customerId)).Return(customer);
+                    container.Resolve<IRepository<Product>>().Stub(r => r.GetById(productId)).Return(product);
+            }
 
-            orderController = new OrderController(customerRepository, productRepository, countryRepository, userService);
+            playback = mocks.Playback();
 
             orderController.AddProduct(customerId, productId, quantity);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            playback.Dispose();
         }
 
         [Test]
@@ -57,6 +69,5 @@ namespace Mike.RhinoMocksDemo.Tests.Controller.OrderControllerTests
 
             Assert.That(theOnlyQuantity, Is.EqualTo(quantity));
         }
-        
     }
 }
