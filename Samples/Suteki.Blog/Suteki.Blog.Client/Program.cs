@@ -15,11 +15,14 @@ namespace Suteki.Blog.Client
             {
                 program.Run();
             }
+
+            Console.ReadLine();
         }
 
         public Program()
         {
-            container = ContainerBuilder.Build();
+            // container = ContainerBuilder.BuildForInProcess();
+            container = ContainerBuilder.BuildForWebservice();
         }
 
         public void Dispose()
@@ -47,6 +50,9 @@ namespace Suteki.Blog.Client
         /// <param name="argument">any argument that the controller expects</param>
         public void Request(string target, object argument)
         {
+            Console.WriteLine();
+            Console.WriteLine("-- Request: {0} --", target);
+
             var requestItems = target.Split('/');
             if (requestItems.Length != 2) 
                 throw new ApplicationException("malformed target, expected 'controller/action'");

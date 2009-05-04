@@ -1,22 +1,10 @@
 using NUnit.Framework;
-using Suteki.Blog.Model;
-using Suteki.Blog.Tests.ModelTests.Builders;
 
 namespace Suteki.Blog.Tests.ModelTests.PostTests
 {
     [TestFixture]
-    public class When_Post_is_created
+    public class When_Post_is_created : PostTestBase
     {
-        private Post post;
-        private PostBuilder builder;
-
-        [SetUp]
-        public void SetUp()
-        {
-            builder = new PostBuilder();
-            post = builder;
-        }
-
         [Test]
         public void It_should_not_be_null()
         {
