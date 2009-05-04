@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suteki.Blog", "Suteki.Blog\Suteki.Blog.csproj", "{49A99A4F-47FE-4817-8A18-4FCF0CF44C9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suteki.Blog.Tests", "Suteki.Blog.Tests\Suteki.Blog.Tests.csproj", "{F1626B0F-7FBA-4223-9593-20905977DD4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suteki.Blog.Client", "Suteki.Blog.Client\Suteki.Blog.Client.csproj", "{05B731E0-B99D-4101-8A2B-59DD20C3FB7A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{49A99A4F-47FE-4817-8A18-4FCF0CF44C9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49A99A4F-47FE-4817-8A18-4FCF0CF44C9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49A99A4F-47FE-4817-8A18-4FCF0CF44C9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49A99A4F-47FE-4817-8A18-4FCF0CF44C9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1626B0F-7FBA-4223-9593-20905977DD4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1626B0F-7FBA-4223-9593-20905977DD4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1626B0F-7FBA-4223-9593-20905977DD4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1626B0F-7FBA-4223-9593-20905977DD4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05B731E0-B99D-4101-8A2B-59DD20C3FB7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05B731E0-B99D-4101-8A2B-59DD20C3FB7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05B731E0-B99D-4101-8A2B-59DD20C3FB7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05B731E0-B99D-4101-8A2B-59DD20C3FB7A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
