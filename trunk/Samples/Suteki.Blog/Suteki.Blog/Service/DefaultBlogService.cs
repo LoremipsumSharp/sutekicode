@@ -14,7 +14,7 @@ namespace Suteki.Blog.Service
 
         public Post GetPost(int id)
         {
-            logger.Log(string.Format("Returned post with is {0}", id));
+            logger.Log(string.Format("Returned post with id {0}", id));
 
             return new Post
             {
