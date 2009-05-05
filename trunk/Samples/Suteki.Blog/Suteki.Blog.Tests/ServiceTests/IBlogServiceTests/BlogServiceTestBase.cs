@@ -5,7 +5,7 @@ using Suteki.Blog.Service;
 namespace Suteki.Blog.Tests.ServiceTests.IBlogServiceTests
 {
     [TestFixture]
-    public abstract class IBlogServiceTestBase
+    public abstract class BlogServiceTestBase
     {
         protected IBlogService blogService;
         protected ILogger logger;

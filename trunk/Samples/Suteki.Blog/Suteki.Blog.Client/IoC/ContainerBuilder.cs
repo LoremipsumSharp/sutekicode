@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.ServiceModel;
 using Castle.Facilities.WcfIntegration;
+using Castle.Facilities.WcfIntegration.Rest;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Suteki.Blog.Client.Controller;
@@ -14,13 +15,27 @@ namespace Suteki.Blog.Client.IoC
         {
             return new WindsorContainer()
                 .Register(
-                    AllTypes
-                        .Of<IController>()
-                        .FromAssembly(Assembly.GetExecutingAssembly())
-                        .Configure(c => c.LifeStyle.Transient.Named(c.Implementation.Name)),
+                    AllControllers(),
 
                     Component.For<IBlogService>().ImplementedBy<DefaultBlogService>().LifeStyle.Transient,
                     Component.For<ILogger>().ImplementedBy<DefaultLogger>().LifeStyle.Transient
+                );
+        }
+
+        public static IWindsorContainer BuildForConsoleService()
+        {
+            return new WindsorContainer()
+                .AddFacility<WcfFacility>()
+                .Register(
+                    AllControllers(),
+
+                    Component.For<IBlogService>()
+                        .ActAs(new DefaultClientModel
+                        {
+                            Endpoint = WcfEndpoint
+                                .BoundTo(new NetTcpBinding())
+                                .At("net.tcp://localhost/BlogService")
+                        })
                 );
         }
 
@@ -29,19 +44,36 @@ namespace Suteki.Blog.Client.IoC
             return new WindsorContainer()
                 .AddFacility<WcfFacility>()
                 .Register(
-                    AllTypes
-                        .Of<IController>()
-                        .FromAssembly(Assembly.GetExecutingAssembly())
-                        .Configure(c => c.LifeStyle.Transient.Named(c.Implementation.Name)),
+                    AllControllers(),
 
                     Component.For<IBlogService>()
                         .ActAs(new DefaultClientModel
                         {
                             Endpoint = WcfEndpoint
-                                .BoundTo(new BasicHttpBinding())
-                                .At("http://ipv4.fiddler:50388/BlogService.svc")
+                                .BoundTo(new WSHttpBinding(SecurityMode.None))
+                                .At("http://ipv4.fiddler:50388/BlogService.svc/ws")
                         })
                 );
+        }
+
+        public static IWindsorContainer BuildForRestService()
+        {
+            return new WindsorContainer()
+                .AddFacility<WcfFacility>()
+                .Register(
+                    AllControllers(),
+
+                    Component.For<IBlogService>()
+                        .ActAs(new RestClientModel("http://ipv4.fiddler:51223/BlogService.svc"))
+                );
+        }
+
+        private static IRegistration AllControllers()
+        {
+            return AllTypes
+                .Of<IController>()
+                .FromAssembly(Assembly.GetExecutingAssembly())
+                .Configure(c => c.LifeStyle.Transient.Named(c.Implementation.Name));
         }
     }
 }

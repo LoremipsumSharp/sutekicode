@@ -5,7 +5,7 @@ using Suteki.Blog.Model;
 namespace Suteki.Blog.Tests.ServiceTests.IBlogServiceTests
 {
     [TestFixture]
-    public class When_AddPost_is_invoked : IBlogServiceTestBase
+    public class When_AddPost_is_invoked : BlogServiceTestBase
     {
         private const int id = 44;
         private const string title = "This is the post title";

@@ -12,17 +12,38 @@ namespace Suteki.Blog.Service
             this.logger = logger;
         }
 
-        public Post GetPost(int id)
+        public Post[] GetPosts()
+        {
+            logger.Log("Returned all posts");
+            return new[]
+            {
+                GetPost("1"),
+                GetPost("2"),
+                GetPost("3")
+            };
+        }
+
+        public Post GetPost(string id)
         {
             logger.Log(string.Format("Returned post with id {0}", id));
 
             return new Post
             {
-                Id = id,
+                Id = GetPostId(id),
                 CreatedDate = new DateTime(2009, 5, 1),
                 Title = "My Interesting Post",
                 Text = "Here is some interesting information"
             };
+        }
+
+        private static int GetPostId(string id)
+        {
+            int idAsInteger;
+            if(int.TryParse(id, out idAsInteger))
+            {
+                return idAsInteger;
+            }
+            throw new ApplicationException(string.Format("id must be a valid integer value, but was: '{0}'", id));
         }
 
         public void AddPost(Post post)

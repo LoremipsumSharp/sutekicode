@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suteki.Blog.Client", "Sutek
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suteki.Blog.Webservice", "Suteki.Blog.Webservice\Suteki.Blog.Webservice.csproj", "{575D52C5-F22E-4F30-A1DB-47410C9BB1A3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suteki.Blog.ConsoleService", "Suteki.Blog.ConsoleService\Suteki.Blog.ConsoleService.csproj", "{AEB2B85D-ABF2-4D40-A719-568B7F10BF5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suteki.Blog.RestService", "Suteki.Blog.RestService\Suteki.Blog.RestService.csproj", "{29C92E1E-0FE8-420E-91B7-AF53D9E526CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +35,14 @@ Global
 		{575D52C5-F22E-4F30-A1DB-47410C9BB1A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{575D52C5-F22E-4F30-A1DB-47410C9BB1A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{575D52C5-F22E-4F30-A1DB-47410C9BB1A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEB2B85D-ABF2-4D40-A719-568B7F10BF5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEB2B85D-ABF2-4D40-A719-568B7F10BF5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEB2B85D-ABF2-4D40-A719-568B7F10BF5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEB2B85D-ABF2-4D40-A719-568B7F10BF5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29C92E1E-0FE8-420E-91B7-AF53D9E526CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29C92E1E-0FE8-420E-91B7-AF53D9E526CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29C92E1E-0FE8-420E-91B7-AF53D9E526CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29C92E1E-0FE8-420E-91B7-AF53D9E526CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
