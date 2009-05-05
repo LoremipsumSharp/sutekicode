@@ -1,19 +1,18 @@
 using NUnit.Framework;
 using Rhino.Mocks;
 using Suteki.Blog.Model;
-using Suteki.Blog.Service;
 
 namespace Suteki.Blog.Tests.ServiceTests.IBlogServiceTests
 {
     [TestFixture]
-    public class When_GetPost_is_invoked : IBlogServiceTestBase
+    public class When_GetPost_is_invoked : BlogServiceTestBase
     {
-        private const int id = 10;
+        private const int id = 2;
         private Post post;
 
         protected override void DoSetup()
         {
-            post = blogService.GetPost(id);
+            post = blogService.GetPost(id.ToString());
         }
 
         [Test]
@@ -31,7 +30,7 @@ namespace Suteki.Blog.Tests.ServiceTests.IBlogServiceTests
         [Test]
         public void It_should_write_a_log_message()
         {
-            logger.AssertWasCalled(l => l.Log(string.Format("Returned post with is {0}", id)));
+            logger.AssertWasCalled(l => l.Log(string.Format("Returned post with id {0}", id)));
         }
     }
 }

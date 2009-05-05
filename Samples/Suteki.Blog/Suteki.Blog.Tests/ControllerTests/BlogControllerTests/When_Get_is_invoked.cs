@@ -12,18 +12,18 @@ namespace Suteki.Blog.Tests.ControllerTests.BlogControllerTests
 
         public override void DoSetup()
         {
-            blogService.Stub(b => b.GetPost(postId)).Return(new Post
+            blogService.Stub(b => b.GetPost(postId.ToString())).Return(new Post
             {
                 Id = postId
             });
 
-            returnedPost = blogController.Get(postId);
+            returnedPost = blogController.Get(postId.ToString());
         }
 
         [Test]
         public void BlogService_GetPost_should_be_called()
         {
-            blogService.AssertWasCalled(b => b.GetPost(postId));
+            blogService.AssertWasCalled(b => b.GetPost(postId.ToString()));
         }
 
         [Test]

@@ -18,7 +18,7 @@ namespace Suteki.Blog.Client.Controller
             service.AddPost(post);
         }
 
-        public Post Get(int postId)
+        public Post Get(string postId)
         {
             return service.GetPost(postId);
         }

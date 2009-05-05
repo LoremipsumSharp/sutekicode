@@ -1,4 +1,5 @@
 using System.ServiceModel;
+using System.ServiceModel.Web;
 using Suteki.Blog.Model;
 
 namespace Suteki.Blog.Service
@@ -7,9 +8,15 @@ namespace Suteki.Blog.Service
     public interface IBlogService
     {
         [OperationContract]
-        Post GetPost(int id);
+        [WebGet(UriTemplate = "/")]
+        Post[] GetPosts();
 
         [OperationContract]
+        [WebGet(UriTemplate = "/{id}")]
+        Post GetPost(string id);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/", Method = "POST")]
         void AddPost(Post post);
     }
 }

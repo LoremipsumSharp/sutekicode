@@ -21,13 +21,10 @@ namespace Suteki.Blog.Client
 
         public Program()
         {
-            // container = ContainerBuilder.BuildForInProcess();
-            container = ContainerBuilder.BuildForWebservice();
-        }
-
-        public void Dispose()
-        {
-            container.Dispose();
+//            container = ContainerBuilder.BuildForInProcess();
+//            container = ContainerBuilder.BuildForConsoleService();
+//            container = ContainerBuilder.BuildForWebservice();
+            container = ContainerBuilder.BuildForRestService();
         }
 
         public void Run()
@@ -39,7 +36,7 @@ namespace Suteki.Blog.Client
             };
             Request("Blog/Put", post);
 
-            var postId = 7;
+            var postId = "7";
             Request("Blog/Get", postId);
         }
 
@@ -54,15 +51,26 @@ namespace Suteki.Blog.Client
             Console.WriteLine("-- Request: {0} --", target);
 
             var requestItems = target.Split('/');
-            if (requestItems.Length != 2) 
+            if (requestItems.Length != 2)
+            {
                 throw new ApplicationException("malformed target, expected 'controller/action'");
+            } 
 
             var controllerName = requestItems[0] + "Controller";
             var actionName = requestItems[1];
 
+            if (!container.Kernel.HasComponent(controllerName))
+            {
+                throw new ApplicationException(string.Format("unknown controller: '{0}'", controllerName));
+            }
+
             var controller = container.Resolve(controllerName);
 
             var actionMethod = controller.GetType().GetMethod(actionName);
+            if (actionMethod == null)
+            {
+                throw new ApplicationException(string.Format("unknown action method: '{0}'", actionName));
+            }
 
             var response = actionMethod.Invoke(controller, new [] { argument });
             WriteResponse(response);
@@ -75,6 +83,11 @@ namespace Suteki.Blog.Client
             Console.WriteLine("-- Response --");
             Console.WriteLine(response.ToString());
             Console.WriteLine();
+        }
+
+        public void Dispose()
+        {
+            container.Dispose();
         }
     }
 }
