@@ -68,6 +68,23 @@ namespace Suteki.Blog.Client.IoC
                 );
         }
 
+        public static IWindsorContainer BuildForMultitenanted()
+        {
+            return new WindsorContainer()
+                .AddFacility<WcfFacility>()
+                .Register(
+                    AllControllers(),
+
+                    Component.For<IBlogService>()
+                        .ActAs(new DefaultClientModel
+                        {
+                            Endpoint = WcfEndpoint
+                                .BoundTo(new BasicHttpBinding())
+                                .At("http://blue.shop/BlogService.svc")
+                        })
+                );
+        }
+
         private static IRegistration AllControllers()
         {
             return AllTypes

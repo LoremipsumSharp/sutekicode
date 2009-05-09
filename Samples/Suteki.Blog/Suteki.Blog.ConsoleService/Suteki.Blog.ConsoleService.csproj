@@ -63,6 +63,8 @@
     <Compile Include="IoC\ContainerBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Wcf\LifestyleMessageAction.cs" />
+    <Compile Include="Wcf\MessageLifestyleBehavior.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Suteki.Blog\Suteki.Blog.csproj">

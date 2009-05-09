@@ -1,23 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F1626B0F-7FBA-4223-9593-20905977DD4D}</ProjectGuid>
+    <ProjectGuid>{DD487E05-31CA-417F-BB2B-4E55ED0AF77C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Suteki.Blog.Tests</RootNamespace>
-    <AssemblyName>Suteki.Blog.Tests</AssemblyName>
+    <RootNamespace>Suteki.Blog.Multitenanted</RootNamespace>
+    <AssemblyName>Suteki.Blog.Multitenanted</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,7 +24,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -51,56 +50,48 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependencies\Castle\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=2.5.0.9122, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependencies\NUnit\framework\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.Mocks, Version=3.5.0.1337, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependencies\Rhino.Mocks\Rhino.Mocks.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.ServiceModel.Web">
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.XML" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Atom\AtomFeedTests\When_GetPosts_is_invoked.cs" />
-    <Compile Include="Atom\PostAtomFeedMapper\When_Map_is_invoked.cs" />
-    <Compile Include="ControllerTests\BlogControllerTests\BlogControllerTestBase.cs" />
-    <Compile Include="ControllerTests\BlogControllerTests\When_Get_is_invoked.cs" />
-    <Compile Include="ControllerTests\BlogControllerTests\When_Put_is_invoked.cs" />
-    <Compile Include="ModelTests\Builders\ModelBuilder.cs" />
-    <Compile Include="ModelTests\Builders\PostBuilder.cs" />
-    <Compile Include="ModelTests\PostTests\PostTestBase.cs" />
-    <Compile Include="ModelTests\PostTests\When_Post_is_created.cs" />
-    <Compile Include="ModelTests\PostTests\When_ToString_is_invoked.cs" />
+    <Content Include="BlogService.svc" />
+    <Content Include="Global.asax" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="IoC\ContainerBuilder.cs" />
+    <Compile Include="IoC\HostBasedComponentSelector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceTests\IBlogServiceTests\BlogServiceTestBase.cs" />
-    <Compile Include="ServiceTests\IBlogServiceTests\When_AddPost_is_invoked.cs" />
-    <Compile Include="ServiceTests\IBlogServiceTests\When_GetPost_is_invoked.cs" />
-    <Compile Include="Spikes\CustomDependencySpike.cs" />
-    <Compile Include="Spikes\NamingPartsSubsystemSpike.cs" />
+    <Compile Include="Wcf\MultitenantedServiceHostFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Suteki.Blog.Client\Suteki.Blog.Client.csproj">
-      <Project>{05B731E0-B99D-4101-8A2B-59DD20C3FB7A}</Project>
-      <Name>Suteki.Blog.Client</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Suteki.Blog.RestService\Suteki.Blog.RestService.csproj">
-      <Project>{29C92E1E-0FE8-420E-91B7-AF53D9E526CC}</Project>
-      <Name>Suteki.Blog.RestService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Suteki.Blog\Suteki.Blog.csproj">
       <Project>{49A99A4F-47FE-4817-8A18-4FCF0CF44C9B}</Project>
       <Name>Suteki.Blog</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -108,4 +99,23 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49718</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

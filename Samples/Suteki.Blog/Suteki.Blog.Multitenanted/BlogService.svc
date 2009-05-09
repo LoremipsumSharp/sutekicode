@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Service="blogService" Factory="Suteki.Blog.Multitenanted.Wcf.MultitenantedServiceHostFactory, Suteki.Blog.Multitenanted"  %>
