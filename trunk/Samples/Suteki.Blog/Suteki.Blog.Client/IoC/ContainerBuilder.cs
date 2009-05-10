@@ -51,7 +51,7 @@ namespace Suteki.Blog.Client.IoC
                         {
                             Endpoint = WcfEndpoint
                                 .BoundTo(new WSHttpBinding(SecurityMode.None))
-                                .At("http://ipv4.fiddler:50388/BlogService.svc/ws")
+                                .At("http://localhost:50388/BlogService.svc/ws")
                         })
                 );
         }

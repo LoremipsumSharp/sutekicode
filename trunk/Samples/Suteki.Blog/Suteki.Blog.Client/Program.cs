@@ -23,9 +23,9 @@ namespace Suteki.Blog.Client
         {
 //            container = ContainerBuilder.BuildForInProcess();
 //            container = ContainerBuilder.BuildForConsoleService();
-//            container = ContainerBuilder.BuildForWebservice();
+            container = ContainerBuilder.BuildForWebservice();
 //            container = ContainerBuilder.BuildForRestService();
-            container = ContainerBuilder.BuildForMultitenanted();
+//            container = ContainerBuilder.BuildForMultitenanted();
         }
 
         public void Run()

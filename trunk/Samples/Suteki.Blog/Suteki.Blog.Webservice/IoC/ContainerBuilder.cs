@@ -1,4 +1,5 @@
 using System.ServiceModel;
+using System.ServiceModel.Activation;
 using System.ServiceModel.Description;
 using Castle.Facilities.WcfIntegration;
 using Castle.Facilities.WcfIntegration.Behaviors;
@@ -24,7 +25,8 @@ namespace Suteki.Blog.Webservice.IoC
             };
 
             return new WindsorContainer()
-                .AddFacility<WcfFacility>()
+                .AddFacility<WcfFacility>(f => f.Services.AspNetCompatibility = 
+                    AspNetCompatibilityRequirementsMode.Required)
                 .Register(
                     Component.For<IServiceBehavior>().Instance(metadata),
                     Component.For<IServiceBehavior>().Instance(debug),
