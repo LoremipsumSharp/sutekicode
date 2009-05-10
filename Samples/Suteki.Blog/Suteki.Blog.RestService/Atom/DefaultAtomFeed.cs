@@ -1,8 +1,18 @@
+using System.ServiceModel;
 using System.ServiceModel.Syndication;
+using System.ServiceModel.Web;
 using Suteki.Blog.Service;
 
 namespace Suteki.Blog.RestService.Atom
 {
+    [ServiceContract]
+    public interface IAtomFeed
+    {
+        [OperationContract]
+        [WebGet(UriTemplate = "/")]
+        Atom10FeedFormatter GetPosts();
+    }
+
     public class DefaultAtomFeed : IAtomFeed
     {
         private readonly IBlogService blogService;

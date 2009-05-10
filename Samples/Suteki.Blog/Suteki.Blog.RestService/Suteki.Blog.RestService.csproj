@@ -82,8 +82,6 @@
   <ItemGroup>
     <Compile Include="Atom\DefaultAtomFeed.cs" />
     <Compile Include="Atom\DefaultPostAtomFeedMapper.cs" />
-    <Compile Include="Atom\IAtomFeed.cs" />
-    <Compile Include="Atom\IPostAtomFeedMapper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

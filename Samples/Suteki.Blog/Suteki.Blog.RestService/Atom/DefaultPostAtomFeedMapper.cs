@@ -4,6 +4,11 @@ using Suteki.Blog.Model;
 
 namespace Suteki.Blog.RestService.Atom
 {
+    public interface IPostAtomFeedMapper
+    {
+        SyndicationFeed Map(Post[] posts);
+    }
+
     public class DefaultPostAtomFeedMapper : IPostAtomFeedMapper
     {
         public SyndicationFeed Map(Post[] posts)

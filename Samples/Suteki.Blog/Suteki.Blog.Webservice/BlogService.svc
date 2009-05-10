@@ -1,1 +1,2 @@
-﻿<%@ ServiceHost Service="blogService" Factory="Castle.Facilities.WcfIntegration.DefaultServiceHostFactory, Castle.Facilities.WcfIntegration"  %>
+﻿<%@ ServiceHost Service="blogService" 
+    Factory="Castle.Facilities.WcfIntegration.DefaultServiceHostFactory, Castle.Facilities.WcfIntegration"  %>

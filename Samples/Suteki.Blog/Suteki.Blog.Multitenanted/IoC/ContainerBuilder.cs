@@ -1,5 +1,3 @@
-using System.ServiceModel;
-using System.ServiceModel.Activation;
 using System.ServiceModel.Description;
 using Castle.Facilities.WcfIntegration;
 using Castle.MicroKernel;

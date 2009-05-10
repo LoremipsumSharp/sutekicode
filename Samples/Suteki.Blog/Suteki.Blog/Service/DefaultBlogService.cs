@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics;
+using System.Web;
 using Suteki.Blog.Model;
 
 namespace Suteki.Blog.Service
@@ -26,6 +28,9 @@ namespace Suteki.Blog.Service
         public Post GetPost(string id)
         {
             logger.Log(string.Format("Returned post with id {0}", id));
+            
+            Debug.WriteLine(string.Format("HttpContext.Current = {0}", 
+                HttpContext.Current == null ? "null" : "not null"));
 
             return new Post
             {
@@ -34,6 +39,7 @@ namespace Suteki.Blog.Service
                 Title = "My Interesting Post",
                 Text = "Here is some interesting information"
             };
+
         }
 
         private static int GetPostId(string id)
