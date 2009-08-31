@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mike.NHibernateDemo", "Mike.NHibernateDemo\Mike.NHibernateDemo.csproj", "{BFF444AF-8171-4AAF-9C93-C1374FEEDB81}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mike.NHibernateDemo.Model", "Mike.NHibernateDemo.Model\Mike.NHibernateDemo.Model.csproj", "{320BFA46-AF05-4C1A-A824-DE8572DB52F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mike.NHibernateDemo.Web", "Mike.NHibernateDemo.Web\Mike.NHibernateDemo.Web.csproj", "{4E4307F9-1840-41B9-81E2-4B236067C01D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +17,14 @@ Global
 		{BFF444AF-8171-4AAF-9C93-C1374FEEDB81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFF444AF-8171-4AAF-9C93-C1374FEEDB81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFF444AF-8171-4AAF-9C93-C1374FEEDB81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{320BFA46-AF05-4C1A-A824-DE8572DB52F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{320BFA46-AF05-4C1A-A824-DE8572DB52F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{320BFA46-AF05-4C1A-A824-DE8572DB52F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{320BFA46-AF05-4C1A-A824-DE8572DB52F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E4307F9-1840-41B9-81E2-4B236067C01D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E4307F9-1840-41B9-81E2-4B236067C01D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E4307F9-1840-41B9-81E2-4B236067C01D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E4307F9-1840-41B9-81E2-4B236067C01D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
