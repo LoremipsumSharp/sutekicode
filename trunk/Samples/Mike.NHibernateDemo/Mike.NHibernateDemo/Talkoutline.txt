@@ -1,0 +1,27 @@
+NHibernate demo
+---------------
+
+1. Who am I?
+  - Mike Hadlow
+  - Freelance .NET developer, based in Brighton
+  - Blogger, I write Code Rant.
+  - Author of Suteki Shop, chosen as a ASP.NET MVC sample application
+
+2. What will I talk about?
+  - NHibernate
+
+2A. Developer Nirvana?
+  - No data access :)
+  - (do a little demo of what I mean)
+
+3. A short history of Data Access on .NET
+  - Datasets, why it's bad programming practice to bind a Dataset directly to your UI.
+    - Prevents you from building a clean model of your business domain
+  - Domain Model (Active Record etc) with hand coded DAL
+    - Takes a huge effort to create, can be over 50% of your effort.
+  - Code Generation (Code Smith templates etc)
+    - also seen DSL tools used. 
+    - Personally seen many examples.
+    
+4. Object Relational Mapping tools
+  - Dynamically manage persistence concerns at runtime.
