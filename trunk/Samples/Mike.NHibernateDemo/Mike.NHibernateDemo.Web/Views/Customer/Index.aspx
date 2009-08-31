@@ -13,19 +13,32 @@
         <%= Model.Name %>
     </p>
     <p>Orders:</p>
+    <table>
     <% foreach (var order in Model.Orders)
        { %>
-        <%= order.OrderDate.ToShortDateString() %>
-        
+        <tr><td><%= order.OrderDate.ToShortDateString() %>
+        <tr><td><table>
         <%
            foreach (var orderLine in order.OrderLines)
            { %>
-                <%= orderLine.Product.Name %> Quantity: <%= orderLine.Quantity.ToString() %> Total: <%= orderLine.GetTotalPrice().ToString() %>
-          <% } %>        
-        
+                <tr>
+                <td><%= orderLine.Product.Name %> </td>
+                <td><%= orderLine.Quantity.ToString() %> </td>
+                <td><%= orderLine.GetTotalPrice().ToString() %> </td>
+                </tr>
+          <% } %>      
+            <tr>
+                <td>Total</td>
+                <td></td>
+                <td><%= order.GetOrderTotal().ToString() %></td>
+            </tr>
+          </table>  
+        </td></tr>
     <% } %>
+    </table>
     <p>
-        <%=Html.ActionLink("Create", "Create", new { /* id=Model.PrimaryKey */ }) %> |
+        <%=Html.ActionLink("Create", "Create") %> |
+        <%=Html.ActionLink("Add Widget", "AddWidget")%> |
     </p>
 
 </asp:Content>

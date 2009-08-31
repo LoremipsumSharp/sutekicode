@@ -48,9 +48,9 @@ namespace Mike.NHibernateDemo.Web.Controllers
         {
             var customer = customerService.GetCurrentCustomer();
 
-            if(customer.Orders.Count > 0)
+            if(customer.HasOrders())
             {
-                customer.Orders[0].AddOrderLine(new OrderLine());
+                customer.GetCurrentOrder().AddProduct(new Product { Name = "Widget", Price = 3.45M });
             }
 
             return RedirectToAction("Index");

@@ -14,6 +14,16 @@ namespace Mike.NHibernateDemo.Model
 
         public string Name { get; set; }
 
+        public bool HasOrders()
+        {
+            return orders.Count > 0;
+        }
+
+        public Order GetCurrentOrder()
+        {
+            return !HasOrders() ? null : orders[orders.Count - 1];
+        }
+
         public static Customer NullCustomer
         {
             get
