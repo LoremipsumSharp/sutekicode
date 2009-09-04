@@ -15,6 +15,7 @@ namespace Mike.NHibernateDemo.Model
         }
 
         public virtual string Name { get; set; }
+        public virtual Address Address { get; set; }
 
         public virtual void AddOrder(Order order)
         {

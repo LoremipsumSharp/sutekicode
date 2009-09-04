@@ -5,15 +5,22 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using Mike.NHibernateDemo.Model;
 using NHibernate;
+using NHibernate.Criterion;
 using NHibernate.Tool.hbm2ddl;
 using NHibernate.Linq;
 using NUnit.Framework;
+using Order=Mike.NHibernateDemo.Model.Order;
 
 namespace Mike.NHibernateDemo
 {
     [TestFixture]
     public class SchemaCreationDemo
     {
+        static SchemaCreationDemo()
+        {
+            HibernatingRhinos.NHibernate.Profiler.Appender.NHibernateProfiler.Initialize();
+        }
+
         [Test]
         public void Create_the_schema()
         {
@@ -23,7 +30,9 @@ namespace Mike.NHibernateDemo
                     MsSqlConfiguration.MsSql2005
                         .ConnectionString(config => config.Server(@"localhost\SQLEXPRESS").Database("NHibernateDemo").TrustedConnection()))
                 .Mappings(m => m.AutoMappings.Add(
-                    AutoMap.AssemblyOf<Customer>()
+                    AutoMap
+                        .AssemblyOf<Customer>()
+                        .Setup(setup => setup.IsComponentType = type => type == typeof(Address))
                         .Override<Customer>(map => map.HasMany(x => x.Orders).Cascade.All())
                         .Override<Order>(map => map.HasMany(x => x.OrderLines).Cascade.All())
                         ))
@@ -49,7 +58,9 @@ namespace Mike.NHibernateDemo
                     MsSqlConfiguration.MsSql2005
                         .ConnectionString(config => config.Server(@"localhost\SQLEXPRESS").Database("NHibernateDemo").TrustedConnection()))
                 .Mappings(m => m.AutoMappings.Add(
-                    AutoMap.AssemblyOf<Customer>()
+                    AutoMap
+                        .AssemblyOf<Customer>()
+                        .Setup(setup => setup.IsComponentType = type => type == typeof(Address))
                         .Override<Customer>(map => map.HasMany(x => x.Orders).Cascade.All())
                         .Override<Order>(map => map.HasMany(x => x.OrderLines).Cascade.All())
                         ))
@@ -62,7 +73,15 @@ namespace Mike.NHibernateDemo
             using(var session = sessionFactory.OpenSession())
             using(var transaction = session.BeginTransaction())
             {
-                var customer = new Customer {Name = "Percy"};
+                var customer = new Customer
+                {
+                    Name = "Percy",
+                    Address = new Address
+                    {
+                        Line1 = "54 Steam Lane",
+                        Town = "Sodor"
+                    }
+                };
 
                 session.SaveOrUpdate(customer);
                 Console.WriteLine("Saved customer with Id = {0}", customer.Id);
@@ -122,7 +141,69 @@ namespace Mike.NHibernateDemo
             using (var transaction = session.BeginTransaction())
             {
                 var customer = session.Load<Customer>(customerId);
-                customer.Name = "Toby";
+                customer.Name = "Percy";
+                transaction.Commit();
+            }
+        }
+
+        // create a new customer before running this
+        [Test]
+        public void Delete_a_customer()
+        {
+            using (var session = sessionFactory.OpenSession())
+            using (var transaction = session.BeginTransaction())
+            {
+                var customer = session.Load<Customer>(customerId + 1);
+                session.Delete(customer);
+                transaction.Commit();
+            }
+        }
+
+        // set the name back to Percy first
+        [Test]
+        public void Query_a_customer_by_name_using_HQL()
+        {
+            using (var session = sessionFactory.OpenSession())
+            using (var transaction = session.BeginTransaction())
+            {
+                var customer = session
+                    .CreateQuery("from Customer as c where c.Name = ?")
+                    .SetParameter(0, "Percy")
+                    .UniqueResult<Customer>();
+                
+                PrintCustomer(customer);
+                transaction.Commit();
+            }
+        }
+
+        [Test]
+        public void Change_a_customers_name_using_HQL()
+        {
+            using (var session = sessionFactory.OpenSession())
+            using (var transaction = session.BeginTransaction())
+            {
+                session
+                    .CreateQuery("update Customer c set c.Name = ? where c.Name = ?")
+                    .SetParameter(0, "Frankie")
+                    .SetParameter(1, "Percy")
+                    .ExecuteUpdate();
+
+                transaction.Commit();
+            }
+        }
+
+        [Test]
+        public void Query_a_customer_by_name_using_criteria()
+        {
+            using (var session = sessionFactory.OpenSession())
+            using (var transaction = session.BeginTransaction())
+            {
+                var customer = session
+                    .CreateCriteria(typeof (Customer))
+                    .Add(Restrictions.Eq("Name", "Percy"))
+                    .UniqueResult<Customer>();
+
+                PrintCustomer(customer);
                 transaction.Commit();
             }
         }
@@ -133,21 +214,28 @@ namespace Mike.NHibernateDemo
             using (var session = sessionFactory.OpenSession())
             using (var transaction = session.BeginTransaction())
             {
-                var customer = session.Linq<Customer>().SingleOrDefault(c => c.Name == "Percy");
-                PrintCustomer(customer);
+                var customer = session
+                    .Linq<Customer>()
+                    .SingleOrDefault(c => c.Name == "Percy");
 
+                PrintCustomer(customer);
                 transaction.Commit();
             }
         }
 
         [Test]
-        public void Delete_a_customer()
+        public void Query_a_customer_by_name_using_SQL()
         {
             using (var session = sessionFactory.OpenSession())
             using (var transaction = session.BeginTransaction())
             {
-                var customer = session.Load<Customer>(customerId);
-                session.Delete(customer);
+                var customer = session
+                    .CreateSQLQuery("SELECT {c.*} FROM Customer AS c WHERE c.Name = :name")
+                    .AddEntity("c", typeof (Customer))
+                    .SetParameter("name", "Percy")
+                    .UniqueResult<Customer>();
+
+                PrintCustomer(customer);
                 transaction.Commit();
             }
         }
@@ -177,15 +265,30 @@ namespace Mike.NHibernateDemo
             using (var session = sessionFactory.OpenSession())
             using (var transaction = session.BeginTransaction())
             {
-                var customer = new Customer { Name = "John Brown" };
+                var customer = new Customer
+                {
+                    Name = "Gordon",
+                    Address = new Address
+                    {
+                        Line1 = "9 Piston Avenue",
+                        Town = "Sodor"
+                    }
+                };
 
-                customer.AddOrder(new Order
+                var order1 = new Order
+                {
+                    OrderDate = DateTime.Now + TimeSpan.FromDays(-1)
+                };
+                customer.AddOrder(order1);
+                order1.AddProduct(session.Load<Product>(widgetId));
+                order1.AddProduct(session.Load<Product>(gadgetId));
+
+                var order2 = new Order
                 {
                     OrderDate = DateTime.Now
-                });
-
-                customer.GetCurrentOrder().AddProduct(session.Load<Product>(widgetId));
-                customer.GetCurrentOrder().AddProduct(session.Load<Product>(gadgetId));
+                };
+                customer.AddOrder(order2);
+                order2.AddProduct(session.Load<Product>(widgetId));
 
                 session.SaveOrUpdate(customer);
                 transaction.Commit();
@@ -194,7 +297,8 @@ namespace Mike.NHibernateDemo
             }
         }
 
-        private const int customerWithOrderId = 3;
+        // make sure we use the correct id :)
+        private const int customerWithOrderId = 5;
 
         [Test]
         public void Retrieve_customer_with_order()
@@ -226,6 +330,7 @@ namespace Mike.NHibernateDemo
         private static void PrintCustomer(Customer customer)
         {
             Console.WriteLine("Customer with Id: {0}, Name: {1}", customer.Id, customer.Name);
+            Console.WriteLine("Address: {0}, {1}", customer.Address.Line1, customer.Address.Town);
             foreach (var order in customer.Orders)
             {
                 Console.WriteLine("\tOrder Date:  {0}", order.OrderDate.ToShortDateString());
