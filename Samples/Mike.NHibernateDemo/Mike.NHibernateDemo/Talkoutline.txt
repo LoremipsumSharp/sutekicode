@@ -22,6 +22,32 @@ NHibernate demo
   - Code Generation (Code Smith templates etc)
     - also seen DSL tools used. 
     - Personally seen many examples.
+    - Have to manage the generated code, causes problems with source control etc.
     
 4. Object Relational Mapping tools
   - Dynamically manage persistence concerns at runtime.
+  - Generate SQL on the fly
+
+5. Brief history of Hibernate/NHiberante.
+
+5. NHibernate demo
+
+- Developer performance
+- NHibernate is a code generator 
+- How to configure and create an ISessionFactory
+- Creating an ISession
+- Run a query and show Sql Profiler
+- Go over mapping of object just queried - show table and class
+- Lazy loading
+- Demo identity map - load same object twice
+- Do update and dynamic update
+- Do batched update with multiple objects
+- Do batched update with transation
+- Cascade update to Order Details
+- ICriteria query
+- HQL query
+- Eager join fetching
+- Formula properties
+- Entity mapping vs value objects attached to entity (OrderDetail)
+- 2nd level cache discussion
+- Where to place NHibernate in an application

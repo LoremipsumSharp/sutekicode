@@ -6,23 +6,26 @@ namespace Mike.NHibernateDemo.Model
 {
     public class Order
     {
+        public virtual int Id { get; set; }
+
         private IList<OrderLine> orderLines = new List<OrderLine>();
 
-        public IList<OrderLine> OrderLines
+        public virtual IList<OrderLine> OrderLines
         {
             get { return orderLines; }
             set { orderLines = value; }
         }
 
-        public DateTime OrderDate { get; set; }
+        public virtual DateTime OrderDate { get; set; }
+        public virtual Customer Customer { get; set; }
 
-        public void AddOrderLine(OrderLine orderLine)
+        public virtual void AddOrderLine(OrderLine orderLine)
         {
             orderLine.Order = this;
             orderLines.Add(orderLine);
         }
 
-        public void AddProduct(Product product)
+        public virtual void AddProduct(Product product)
         {
             var orderLine = orderLines.SingleOrDefault(line => line.Product.Name == product.Name);
             if(orderLine == null)
@@ -39,7 +42,7 @@ namespace Mike.NHibernateDemo.Model
             }
         }
 
-        public decimal GetOrderTotal()
+        public virtual decimal GetOrderTotal()
         {
             return orderLines.Sum(line => line.GetTotalPrice());
         }
