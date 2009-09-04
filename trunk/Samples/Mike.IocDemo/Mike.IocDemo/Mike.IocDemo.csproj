@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\AnotherThing.cs" />
     <Compile Include="Model\FlipFlopReportSenderFactory.cs" />
     <Compile Include="Model\IRepository.cs" />
     <Compile Include="Model\MultipleSenderReporter.cs" />
@@ -101,7 +102,6 @@
     <Compile Include="Model\Report.cs" />
     <Compile Include="Model\ReportBuilder.cs" />
     <Compile Include="Model\SmsReportSender.cs" />
-    <Compile Include="Windsor\ArrayResolver.cs" />
     <Compile Include="Windsor\WindsorServiceLocator.cs" />
   </ItemGroup>
   <ItemGroup>

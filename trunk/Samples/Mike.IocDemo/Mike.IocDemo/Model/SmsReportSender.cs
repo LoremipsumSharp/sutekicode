@@ -13,5 +13,10 @@ namespace Mike.IocDemo.Model
         {
             Console.WriteLine("Sent '{0}' by SMS", report.Name);
         }
+
+        public void Dispose()
+        {
+            Console.WriteLine("Disposing SmsReportSender");
+        }
     }
 }
