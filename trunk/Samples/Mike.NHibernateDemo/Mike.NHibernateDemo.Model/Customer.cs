@@ -4,22 +4,30 @@ namespace Mike.NHibernateDemo.Model
 {
     public class Customer
     {
+        public virtual int Id { get; set; }
+
         private IList<Order> orders = new List<Order>();
 
-        public IList<Order> Orders
+        public virtual IList<Order> Orders
         {
             get { return orders; }
             set { orders = value; }
         }
 
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
-        public bool HasOrders()
+        public virtual void AddOrder(Order order)
+        {
+            order.Customer = this;
+            orders.Add(order);
+        }
+
+        public virtual bool HasOrders()
         {
             return orders.Count > 0;
         }
 
-        public Order GetCurrentOrder()
+        public virtual Order GetCurrentOrder()
         {
             return !HasOrders() ? null : orders[orders.Count - 1];
         }

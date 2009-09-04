@@ -2,12 +2,14 @@ namespace Mike.NHibernateDemo.Model
 {
     public class OrderLine
     {
-        public Product Product { get; set; }
-        public int Quantity { get; set; }
+        public virtual int Id { get; set; }
 
-        public Order Order { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual int Quantity { get; set; }
 
-        public decimal GetTotalPrice()
+        public virtual Order Order { get; set; }
+
+        public virtual decimal GetTotalPrice()
         {
             return Product.Price*Quantity;
         }
