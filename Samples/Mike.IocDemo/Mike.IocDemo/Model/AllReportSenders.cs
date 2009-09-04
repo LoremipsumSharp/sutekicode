@@ -20,5 +20,10 @@ namespace Mike.IocDemo.Model
                 reportSender.Send(report);
             }
         }
+
+        public void Dispose()
+        {
+            Console.WriteLine("Disposing AllReportSenders");
+        }
     }
 }

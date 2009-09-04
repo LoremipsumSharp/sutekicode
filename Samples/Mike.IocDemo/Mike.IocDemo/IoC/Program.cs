@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using Castle.MicroKernel.Registration;
+using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
 using Castle.Windsor.Configuration.Interpreters;
 using Microsoft.Practices.ServiceLocation;
@@ -14,9 +15,14 @@ namespace Mike.IocDemo.IoC
     {
         public static void DemonstrateDependencyInjection()
         {
+            // create our dependencies
             var builder = new ReportBuilder();
-            var sender = new EmailReportSender();
+            var sender = new SmsReportSender();
+
+            // 'inject' them into our Reporter
             var reporter = new Reporter(builder, sender);
+
+            // try it
             reporter.SendReports();
         }
 
@@ -31,15 +37,18 @@ namespace Mike.IocDemo.IoC
 
         public static void DemonstrateBasicWindsorUsage()
         {
-            var container = new WindsorContainer();
-
-            container.Register(
-                Component.For<IReporter>().ImplementedBy<Reporter>(),
-                Component.For<IReportBuilder>().ImplementedBy<ReportBuilder>(),
-                Component.For<IReportSender>().ImplementedBy<EmailReportSender>()
+            // create a new windsor container (do this once in the application)
+            var container = new WindsorContainer()
+                .Register(
+                    Component.For<IReporter>().ImplementedBy<Reporter>(),
+                    Component.For<IReportBuilder>().ImplementedBy<ReportBuilder>(),
+                    Component.For<IReportSender>().ImplementedBy<EmailReportSender>()
                 );
 
+            // get the 'root' of our object graph from the container
             var reporter = container.Resolve<IReporter>();
+
+            // try it
             reporter.SendReports();
         }
 
@@ -54,9 +63,13 @@ namespace Mike.IocDemo.IoC
 
         public static void DemonstrateXmlConfig()
         {
+            // register components using xml config
             var container = new WindsorContainer(new XmlInterpreter());
 
+            // get the 'root' of our object graph from the container
             var reporter = container.Resolve<IReporter>();
+
+            // try it
             reporter.SendReports();
         }
 
@@ -104,9 +117,7 @@ namespace Mike.IocDemo.IoC
                 Component.For<IReporter>().ImplementedBy<Reporter>(),
                 Component.For<IReportBuilder>().ImplementedBy<ReportBuilder>(),
                 Component.For<IReportSender>().ImplementedBy<EmailReportSender>()
-                    .DependsOn(
-                        Property.ForKey("SmtpServer").Eq("smtp.mikehadlow.com")
-                    )
+                    .DependsOn(new { SmtpServer = "smtp.mikehadlow.com" })
                 );
 
             var reporter = container.Resolve<IReporter>();
@@ -211,12 +222,13 @@ namespace Mike.IocDemo.IoC
         {
             var container = new WindsorContainer();
             container.Register(
-                Component.For<IReporter>().ImplementedBy<Reporter>().LifeStyle.Singleton,
+                Component.For<IReporter>().ImplementedBy<Reporter>().LifeStyle.Transient,
                 Component.For<IReportBuilder>().ImplementedBy<ReportBuilder>().LifeStyle.Transient,
                 Component.For<IReportSender>().ImplementedBy<SmsReportSender>().LifeStyle.Transient
                 );
 
             var reporter = container.Resolve<IReporter>();
+
             reporter.SendReports();
             container.Release(reporter);
         }

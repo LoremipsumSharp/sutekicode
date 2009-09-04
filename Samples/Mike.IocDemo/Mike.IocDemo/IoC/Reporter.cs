@@ -1,5 +1,4 @@
 using System;
-using Castle.Core;
 using Mike.IocDemo.Model;
 
 namespace Mike.IocDemo.IoC
@@ -24,6 +23,11 @@ public class Reporter : IReporter
         {
             reportSender.Send(report);
         }
+    }
+
+    public void Dispose()
+    {
+        Console.WriteLine("Disposing Reporter");
     }
 }
 }

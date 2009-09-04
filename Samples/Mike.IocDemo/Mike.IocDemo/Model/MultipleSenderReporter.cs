@@ -1,3 +1,5 @@
+using System;
+
 namespace Mike.IocDemo.Model
 {
     public class MultipleSenderReporter : IReporter
@@ -19,6 +21,11 @@ namespace Mike.IocDemo.Model
                 var reportSender = reportSenderFactory.Create();
                 reportSender.Send(report);
             }
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }

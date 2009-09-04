@@ -22,5 +22,10 @@ namespace Mike.IocDemo.Model
                 Console.WriteLine("Sent '{0}' by email", report.Name);
             }
         }
+
+        public void Dispose()
+        {
+            Console.WriteLine("Disposing EmailReportSender");
+        }
     }
 }

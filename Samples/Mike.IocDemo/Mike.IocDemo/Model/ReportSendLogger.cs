@@ -20,5 +20,10 @@ namespace Mike.IocDemo.Model
             logger.Log(string.Format("Sending report {0}", report.Name));
             reportSender.Send(report);
         }
+
+        public void Dispose()
+        {
+            Console.WriteLine("Disposing ReportSendLogger");
+        }
     }
 }

@@ -17,5 +17,10 @@ namespace Mike.IocDemo.Model
                        new Report { Name = "Report 2" }
                    };
         }
+
+        public void Dispose()
+        {
+            Console.WriteLine("Disposing ReportBuilder");
+        }
     }
 }
