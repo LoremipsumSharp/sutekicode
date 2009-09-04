@@ -36,7 +36,7 @@ namespace Mike.NHibernateDemo
                         .Override<Customer>(map => map.HasMany(x => x.Orders).Cascade.All())
                         .Override<Order>(map => map.HasMany(x => x.OrderLines).Cascade.All())
                         ))
-                .ExposeConfiguration(config => new SchemaExport(config).Create(false, true))
+                .ExposeConfiguration(config => new SchemaExport(config).Create(true, true))
                 .BuildSessionFactory();
         }
     }
@@ -307,6 +307,29 @@ namespace Mike.NHibernateDemo
             using (var transaction = session.BeginTransaction())
             {
                 var customer = session.Load<Customer>(customerWithOrderId);
+                PrintCustomer(customer);
+
+                transaction.Commit();
+            }
+        }
+
+        [Test]
+        public void Retrieve_customer_with_order_eagarly()
+        {
+            using (var session = sessionFactory.OpenSession())
+            using (var transaction = session.BeginTransaction())
+            {
+                var customer = session
+                    .CreateQuery(
+                        "from Customer as c " + 
+                        "inner join fetch c.Orders as o " +
+                        "inner join fetch o.OrderLines as l " + 
+                        "inner join fetch l.Product as p " +
+                        "where c.Id = ?"
+                        )
+                    .SetParameter(0, customerWithOrderId)
+                    .UniqueResult<Customer>();
+
                 PrintCustomer(customer);
 
                 transaction.Commit();
