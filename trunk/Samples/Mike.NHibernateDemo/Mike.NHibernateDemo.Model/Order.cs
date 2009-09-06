@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Mike.NHibernateDemo.Model
 {
-    public class Order
+    public class Order : IEntity
     {
-        public virtual int Id { get; set; }
+        public virtual int Id { get; protected set; }
 
         private IList<OrderLine> orderLines = new List<OrderLine>();
 

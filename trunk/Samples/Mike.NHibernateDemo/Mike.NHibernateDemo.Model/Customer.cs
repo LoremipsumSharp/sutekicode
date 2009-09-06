@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace Mike.NHibernateDemo.Model
 {
-    public class Customer
+    public class Customer : IEntity
     {
-        public virtual int Id { get; set; }
+        public virtual int Id { get; protected set; }
 
         private IList<Order> orders = new List<Order>();
 

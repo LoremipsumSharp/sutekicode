@@ -39,6 +39,8 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="IComponent.cs" />
+    <Compile Include="IEntity.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderLine.cs" />
     <Compile Include="Product.cs" />
