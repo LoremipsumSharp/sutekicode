@@ -18,7 +18,7 @@
     <Position X="6.75" Y="4.25" Width="1.5" />
     <AssociationLine Name="Order" Type="Mike.NHibernateDemo.Model.Order">
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.69" Y="0.277" />
+        <Position X="-1.127" Y="0.454" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>

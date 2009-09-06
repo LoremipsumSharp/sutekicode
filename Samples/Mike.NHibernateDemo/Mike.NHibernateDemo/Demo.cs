@@ -28,14 +28,18 @@ namespace Mike.NHibernateDemo
                 .Configure()
                 .Database(
                     MsSqlConfiguration.MsSql2005
-                        .ConnectionString(config => config.Server(@"localhost\SQLEXPRESS").Database("NHibernateDemo").TrustedConnection()))
+                        .ConnectionString(config => config
+                            .Server(@"localhost\SQLEXPRESS")
+                            .Database("NHibernateDemo")
+                            .TrustedConnection()))
                 .Mappings(m => m.AutoMappings.Add(
                     AutoMap
                         .AssemblyOf<Customer>()
-                        .Setup(setup => setup.IsComponentType = type => type == typeof(Address))
+                        .Where(type => type.IsEntity())
+                        .Setup(setup => setup.IsComponentType = type => type.IsComponent())
                         .Override<Customer>(map => map.HasMany(x => x.Orders).Cascade.All())
                         .Override<Order>(map => map.HasMany(x => x.OrderLines).Cascade.All())
-                        ))
+                        ).ExportTo(@"E:\Mike\Documents\NHMappings"))
                 .ExposeConfiguration(config => new SchemaExport(config).Create(true, true))
                 .BuildSessionFactory();
         }
@@ -49,6 +53,11 @@ namespace Mike.NHibernateDemo
         private const int widgetId = 1;
         private const int gadgetId = 2;
 
+        static Demo()
+        {
+            HibernatingRhinos.NHibernate.Profiler.Appender.NHibernateProfiler.Initialize();
+        }
+
         [SetUp]
         public void SetUp()
         {
@@ -60,7 +69,8 @@ namespace Mike.NHibernateDemo
                 .Mappings(m => m.AutoMappings.Add(
                     AutoMap
                         .AssemblyOf<Customer>()
-                        .Setup(setup => setup.IsComponentType = type => type == typeof(Address))
+                        .Where(type => type.IsEntity())
+                        .Setup(setup => setup.IsComponentType = type => type.IsComponent())
                         .Override<Customer>(map => map.HasMany(x => x.Orders).Cascade.All())
                         .Override<Order>(map => map.HasMany(x => x.OrderLines).Cascade.All())
                         ))
@@ -141,6 +151,18 @@ namespace Mike.NHibernateDemo
             using (var transaction = session.BeginTransaction())
             {
                 var customer = session.Load<Customer>(customerId);
+                customer.Name = "Gordon";
+                transaction.Commit();
+            }
+        }
+
+        [Test]
+        public void Change_the_customers_name_back_to_Percy()
+        {
+            using (var session = sessionFactory.OpenSession())
+            using (var transaction = session.BeginTransaction())
+            {
+                var customer = session.Load<Customer>(customerId);
                 customer.Name = "Percy";
                 transaction.Commit();
             }
@@ -184,7 +206,7 @@ namespace Mike.NHibernateDemo
             {
                 session
                     .CreateQuery("update Customer c set c.Name = ? where c.Name = ?")
-                    .SetParameter(0, "Frankie")
+                    .SetParameter(0, "Gordon")
                     .SetParameter(1, "Percy")
                     .ExecuteUpdate();
 
@@ -307,7 +329,7 @@ namespace Mike.NHibernateDemo
             using (var transaction = session.BeginTransaction())
             {
                 var customer = session.Load<Customer>(customerWithOrderId);
-                PrintCustomer(customer);
+                PrintCustomerAndOrders(customer);
 
                 transaction.Commit();
             }
@@ -330,7 +352,7 @@ namespace Mike.NHibernateDemo
                     .SetParameter(0, customerWithOrderId)
                     .UniqueResult<Customer>();
 
-                PrintCustomer(customer);
+                PrintCustomerAndOrders(customer);
 
                 transaction.Commit();
             }
@@ -350,10 +372,9 @@ namespace Mike.NHibernateDemo
             }
         }
 
-        private static void PrintCustomer(Customer customer)
+        private static void PrintCustomerAndOrders(Customer customer)
         {
-            Console.WriteLine("Customer with Id: {0}, Name: {1}", customer.Id, customer.Name);
-            Console.WriteLine("Address: {0}, {1}", customer.Address.Line1, customer.Address.Town);
+            PrintCustomer(customer);
             foreach (var order in customer.Orders)
             {
                 Console.WriteLine("\tOrder Date:  {0}", order.OrderDate.ToShortDateString());
@@ -366,6 +387,12 @@ namespace Mike.NHibernateDemo
                         orderLine.GetTotalPrice());
                 }
             }
+        }
+
+        private static void PrintCustomer(Customer customer)
+        {
+            Console.WriteLine("Customer with Id: {0}, Name: {1}", customer.Id, customer.Name);
+            Console.WriteLine("Address: {0}, {1}", customer.Address.Line1, customer.Address.Town);
         }
     }
 }
