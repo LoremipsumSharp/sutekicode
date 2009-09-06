@@ -25,7 +25,7 @@ namespace Mike.NHibernateDemo.Model
             orderLines.Add(orderLine);
         }
 
-        public virtual void AddProduct(Product product)
+        public virtual Order AddProduct(Product product)
         {
             var orderLine = orderLines.SingleOrDefault(line => line.Product.Name == product.Name);
             if(orderLine == null)
@@ -40,6 +40,8 @@ namespace Mike.NHibernateDemo.Model
             {
                 orderLine.Quantity++;
             }
+
+            return this;
         }
 
         public virtual decimal GetOrderTotal()

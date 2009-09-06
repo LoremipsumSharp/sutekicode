@@ -65,7 +65,10 @@ namespace Mike.NHibernateDemo
                 .Configure()
                 .Database(
                     MsSqlConfiguration.MsSql2005
-                        .ConnectionString(config => config.Server(@"localhost\SQLEXPRESS").Database("NHibernateDemo").TrustedConnection()))
+                        .ConnectionString(config => config
+                            .Server(@"localhost\SQLEXPRESS")
+                            .Database("NHibernateDemo")
+                            .TrustedConnection()))
                 .Mappings(m => m.AutoMappings.Add(
                     AutoMap
                         .AssemblyOf<Customer>()
@@ -297,20 +300,12 @@ namespace Mike.NHibernateDemo
                     }
                 };
 
-                var order1 = new Order
-                {
-                    OrderDate = DateTime.Now + TimeSpan.FromDays(-1)
-                };
-                customer.AddOrder(order1);
-                order1.AddProduct(session.Load<Product>(widgetId));
-                order1.AddProduct(session.Load<Product>(gadgetId));
+                customer.CreateOrder()
+                    .AddProduct(session.Load<Product>(widgetId))
+                    .AddProduct(session.Load<Product>(gadgetId));
 
-                var order2 = new Order
-                {
-                    OrderDate = DateTime.Now
-                };
-                customer.AddOrder(order2);
-                order2.AddProduct(session.Load<Product>(widgetId));
+                customer.CreateOrder()
+                    .AddProduct(session.Load<Product>(widgetId));
 
                 session.SaveOrUpdate(customer);
                 transaction.Commit();
@@ -320,7 +315,7 @@ namespace Mike.NHibernateDemo
         }
 
         // make sure we use the correct id :)
-        private const int customerWithOrderId = 5;
+        private const int customerWithOrderId = 1;
 
         [Test]
         public void Retrieve_customer_with_order()
@@ -367,6 +362,20 @@ namespace Mike.NHibernateDemo
                 var customer = session.Load<Customer>(customerWithOrderId);
 
                 customer.GetCurrentOrder().OrderLines[0].Quantity = 3;
+
+                transaction.Commit();
+            }
+        }
+
+        [Test]
+        public void Delete_customer_with_order()
+        {
+            using (var session = sessionFactory.OpenSession())
+            using (var transaction = session.BeginTransaction())
+            {
+                var customer = session.Load<Customer>(customerWithOrderId);
+
+                session.Delete(customer);
 
                 transaction.Commit();
             }

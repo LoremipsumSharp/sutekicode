@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Mike.NHibernateDemo.Model
@@ -17,12 +18,6 @@ namespace Mike.NHibernateDemo.Model
         public virtual string Name { get; set; }
         public virtual Address Address { get; set; }
 
-        public virtual void AddOrder(Order order)
-        {
-            order.Customer = this;
-            orders.Add(order);
-        }
-
         public virtual bool HasOrders()
         {
             return orders.Count > 0;
@@ -39,6 +34,17 @@ namespace Mike.NHibernateDemo.Model
             {
                 return new Customer {Name = "Not set"};
             }
+        }
+
+        public virtual Order CreateOrder()
+        {
+            var order = new Order
+            {
+                OrderDate = DateTime.Now, 
+                Customer = this
+            };
+            orders.Add(order);
+            return order;
         }
     }
 }
