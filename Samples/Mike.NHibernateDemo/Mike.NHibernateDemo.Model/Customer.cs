@@ -6,6 +6,7 @@ namespace Mike.NHibernateDemo.Model
     public class Customer : IEntity
     {
         public virtual int Id { get; protected set; }
+        public virtual int Version { get; protected set; }
 
         private IList<Order> orders = new List<Order>();
 
