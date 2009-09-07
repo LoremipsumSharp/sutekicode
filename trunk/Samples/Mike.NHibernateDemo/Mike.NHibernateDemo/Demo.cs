@@ -39,7 +39,7 @@ namespace Mike.NHibernateDemo
                         .Setup(setup => setup.IsComponentType = type => type.IsComponent())
                         .Override<Customer>(map => map.HasMany(x => x.Orders).Cascade.All())
                         .Override<Order>(map => map.HasMany(x => x.OrderLines).Cascade.All())
-                        ).ExportTo(@"E:\Mike\Documents\NHMappings"))
+                        ).ExportTo(@"D:\Temp\NHibernateMappings"))
                 .ExposeConfiguration(config => new SchemaExport(config).Create(true, true))
                 .BuildSessionFactory();
         }
@@ -169,6 +169,24 @@ namespace Mike.NHibernateDemo
                 customer.Name = "Percy";
                 transaction.Commit();
             }
+        }
+
+        // This test should throw an NHibernate.StaleObjectStateException
+        [Test]
+        public void Optimistic_locking()
+        {
+            Customer customer1 = null;
+            Customer customer2 = null;
+
+            // note using Get to make sure the customer is loaded
+            InSession(session => customer1 = session.Get<Customer>(customerId));
+            InSession(session => customer2 = session.Get<Customer>(customerId));
+
+            customer1.Name = "John";
+            customer2.Name = "Fred";
+
+            InSession(session => session.Update(customer1));        
+            InSession(session => session.Update(customer2));
         }
 
         // create a new customer before running this
@@ -315,7 +333,7 @@ namespace Mike.NHibernateDemo
         }
 
         // make sure we use the correct id :)
-        private const int customerWithOrderId = 1;
+        private const int customerWithOrderId = 2;
 
         [Test]
         public void Retrieve_customer_with_order()
@@ -331,7 +349,7 @@ namespace Mike.NHibernateDemo
         }
 
         [Test]
-        public void Retrieve_customer_with_order_eagarly()
+        public void Retrieve_customer_with_order_eagarly_using_HQL()
         {
             using (var session = sessionFactory.OpenSession())
             using (var transaction = session.BeginTransaction())
@@ -345,6 +363,26 @@ namespace Mike.NHibernateDemo
                         "where c.Id = ?"
                         )
                     .SetParameter(0, customerWithOrderId)
+                    .UniqueResult<Customer>();
+
+                PrintCustomerAndOrders(customer);
+
+                transaction.Commit();
+            }
+        }
+
+        [Test]
+        public void Retrieve_customer_with_order_eagarly_using_criteria()
+        {
+            using (var session = sessionFactory.OpenSession())
+            using (var transaction = session.BeginTransaction())
+            {
+                var customer = session
+                    .CreateCriteria<Customer>()
+                    .Add(Restrictions.Eq("Id", customerWithOrderId))
+                    .SetFetchMode("Orders", FetchMode.Eager)
+                    .SetFetchMode("Orders.OrderLines", FetchMode.Eager)
+                    .SetFetchMode("Orders.OrderLines.Product", FetchMode.Eager)
                     .UniqueResult<Customer>();
 
                 PrintCustomerAndOrders(customer);
@@ -381,6 +419,16 @@ namespace Mike.NHibernateDemo
             }
         }
 
+        private void InSession(Action<ISession> action)
+        {
+            using (var session = sessionFactory.OpenSession())
+            using (var transaction = session.BeginTransaction())
+            {
+                action(session);
+                transaction.Commit();
+            }
+        }
+
         private static void PrintCustomerAndOrders(Customer customer)
         {
             PrintCustomer(customer);
@@ -400,7 +448,7 @@ namespace Mike.NHibernateDemo
 
         private static void PrintCustomer(Customer customer)
         {
-            Console.WriteLine("Customer with Id: {0}, Name: {1}", customer.Id, customer.Name);
+            Console.WriteLine("Customer with Id: {0}, Version: {1}, Name: {2}", customer.Id, customer.Version, customer.Name);
             Console.WriteLine("Address: {0}, {1}", customer.Address.Line1, customer.Address.Town);
         }
     }
