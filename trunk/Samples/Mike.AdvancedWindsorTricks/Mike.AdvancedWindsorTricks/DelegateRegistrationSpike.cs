@@ -1,6 +1,7 @@
 using System;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using Mike.AdvancedWindsorTricks.Model;
 
 namespace Mike.AdvancedWindsorTricks
 {
@@ -17,54 +18,23 @@ namespace Mike.AdvancedWindsorTricks
             Console.WriteLine(sayHello());
         }
 
-        public void can_I_register_a_delegate()
+        public void use_a_delegate_as_a_factory()
         {
             var container = new WindsorContainer();
             container
                 .Register(
-                    Component.For<Do>().Named("do1"),
-                    Component.For<Do>().ImplementedBy<BigDo>().Named("do2"),
-                    Component.For<Func<String,Do>>().Instance(container.Resolve<Do>),
-                    Component.For<UseDo>()
+                    Component.For<IThing>().ImplementedBy<ThingOne>().Named("thingOne"),
+                    Component.For<IThing>().ImplementedBy<ThingTwo>().Named("thingTwo"),
+                    Component.For<Func<string,IThing>>().Instance(container.Resolve<IThing>),
+                    Component.For<IUseThing>().ImplementedBy<UseThing>()
                     );
 
-            var useDo = container.Resolve<UseDo>();
-            var do1 = useDo.GetDo("do1");
-            var do2 = useDo.GetDo("do2");
+            var useDo = container.Resolve<IUseThing>();
+            var thing1 = useDo.GetThing("thingOne");
+            var thing2 = useDo.GetThing("thingTwo");
 
-            do1.SayHello();
-            do2.SayHello();
-        }
-    }
-
-    public class Do
-    {
-        public virtual void SayHello()
-        {
-            Console.WriteLine("Hello from Do");
-        }
-    }
-
-    public class BigDo : Do
-    {
-        public override void SayHello()
-        {
-            Console.WriteLine("Hello from BigDo");
-        }
-    }
-
-    public class UseDo
-    {
-        private readonly Func<String, Do> doFactory;
-
-        public UseDo(Func<String, Do> doFactory)
-        {
-            this.doFactory = doFactory;
-        }
-
-        public Do GetDo(string name)
-        {
-            return doFactory(name);
+            Console.WriteLine(thing1.SayHello("Mike"));
+            Console.WriteLine(thing2.SayHello("Mike"));
         }
     }
 }
