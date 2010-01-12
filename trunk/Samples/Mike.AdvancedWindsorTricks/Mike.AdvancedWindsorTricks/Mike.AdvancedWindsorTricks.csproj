@@ -57,12 +57,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoFactorySpike.cs" />
     <Compile Include="AutoRegistrationSpike.cs" />
     <Compile Include="DelegateRegistrationSpike.cs" />
     <Compile Include="Model\IThing.cs" />
     <Compile Include="Model\IUseThing.cs" />
     <Compile Include="Model\ThingOne.cs" />
     <Compile Include="Model\ThingTwo.cs" />
+    <Compile Include="Model\UsesThingFactory.cs" />
     <Compile Include="Model\UseThing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
