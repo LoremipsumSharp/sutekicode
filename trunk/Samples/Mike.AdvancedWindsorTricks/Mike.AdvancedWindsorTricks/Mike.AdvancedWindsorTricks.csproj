@@ -60,9 +60,12 @@
     <Compile Include="ArrayResolutionSpike.cs" />
     <Compile Include="AutoFactorySpike.cs" />
     <Compile Include="AutoRegistrationSpike.cs" />
+    <Compile Include="DecoratorSpike.cs" />
     <Compile Include="DelegateRegistrationSpike.cs" />
     <Compile Include="Model\IThing.cs" />
     <Compile Include="Model\IUseThing.cs" />
+    <Compile Include="Model\ThingDecorator.cs" />
+    <Compile Include="Model\ThingDecorator2.cs" />
     <Compile Include="Model\ThingOne.cs" />
     <Compile Include="Model\ThingThree.cs" />
     <Compile Include="Model\ThingTwo.cs" />
