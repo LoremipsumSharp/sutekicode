@@ -64,6 +64,7 @@
     <Compile Include="DelegateRegistrationSpike.cs" />
     <Compile Include="Model\IThing.cs" />
     <Compile Include="Model\IUseThing.cs" />
+    <Compile Include="Model\StartableThing.cs" />
     <Compile Include="Model\ThingDecorator.cs" />
     <Compile Include="Model\ThingDecorator2.cs" />
     <Compile Include="Model\ThingOne.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Model\UsesThingFactory.cs" />
     <Compile Include="Model\UseThing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StartableSpike.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
