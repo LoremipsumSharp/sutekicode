@@ -42,4 +42,10 @@ namespace Mike.AdvancedWindsorTricks
             container.Dispose();
         }
     }
+
+    public interface IStartable
+    {
+        void Start();
+        void Stop();
+    }
 }

@@ -62,6 +62,9 @@
     <Compile Include="AutoRegistrationSpike.cs" />
     <Compile Include="DecoratorSpike.cs" />
     <Compile Include="DelegateRegistrationSpike.cs" />
+    <Compile Include="EventWiringSpike.cs" />
+    <Compile Include="Model\MessageListener.cs" />
+    <Compile Include="Model\MessagePublisher.cs" />
     <Compile Include="Model\IThing.cs" />
     <Compile Include="Model\IUseThing.cs" />
     <Compile Include="Model\StartableThing.cs" />
