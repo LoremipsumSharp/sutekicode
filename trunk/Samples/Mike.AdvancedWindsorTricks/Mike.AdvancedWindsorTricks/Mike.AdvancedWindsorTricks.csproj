@@ -51,6 +51,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.framework, Version=2.5.2.9222, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -63,6 +67,8 @@
     <Compile Include="DecoratorSpike.cs" />
     <Compile Include="DelegateRegistrationSpike.cs" />
     <Compile Include="EventWiringSpike.cs" />
+    <Compile Include="HowToWriteAFacilitySpike.cs" />
+    <Compile Include="Model\EventSubscriptionFacility.cs" />
     <Compile Include="Model\MessageListener.cs" />
     <Compile Include="Model\MessagePublisher.cs" />
     <Compile Include="Model\IThing.cs" />
@@ -73,6 +79,7 @@
     <Compile Include="Model\ThingOne.cs" />
     <Compile Include="Model\ThingThree.cs" />
     <Compile Include="Model\ThingTwo.cs" />
+    <Compile Include="Model\TypedMessagePublisher.cs" />
     <Compile Include="Model\UsesThingArray.cs" />
     <Compile Include="Model\UsesThingFactory.cs" />
     <Compile Include="Model\UseThing.cs" />
