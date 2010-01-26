@@ -15,11 +15,11 @@ namespace Mike.IocDemo.Model
         {
             if (!string.IsNullOrEmpty(SmtpServer))
             {
-                Console.WriteLine("Sent '{0}' to '{1}' by email", report.Name, SmtpServer);
+                Console.WriteLine("Sent '{0}' to '{1}' by email", report.Text, SmtpServer);
             }
             else
             {
-                Console.WriteLine("Sent '{0}' by email", report.Name);
+                Console.WriteLine("Sent '{0}' by email", report.Text);
             }
         }
 

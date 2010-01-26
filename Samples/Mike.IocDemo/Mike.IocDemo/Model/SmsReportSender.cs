@@ -11,7 +11,7 @@ namespace Mike.IocDemo.Model
 
         public void Send(Report report)
         {
-            Console.WriteLine("Sent '{0}' by SMS", report.Name);
+            Console.WriteLine("Sent '{0}' by SMS", report.Text);
         }
 
         public void Dispose()

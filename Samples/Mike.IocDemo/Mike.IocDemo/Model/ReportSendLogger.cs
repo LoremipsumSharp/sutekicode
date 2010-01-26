@@ -17,7 +17,7 @@ namespace Mike.IocDemo.Model
 
         public void Send(Report report)
         {
-            logger.Log(string.Format("Sending report {0}", report.Name));
+            logger.Log(string.Format("Sending report {0}", report.Text));
             reportSender.Send(report);
         }
 
