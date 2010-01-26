@@ -13,8 +13,8 @@ namespace Mike.IocDemo.Model
         {
             return new[]
                    {
-                       new Report { Name = "Report 1" }, 
-                       new Report { Name = "Report 2" }
+                       new Report { Text = "Report 1" }, 
+                       new Report { Text = "Report 2" }
                    };
         }
 

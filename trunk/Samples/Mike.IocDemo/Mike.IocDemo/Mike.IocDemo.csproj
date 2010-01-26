@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Db\DatabaseCreator.cs" />
     <Compile Include="Model\AnotherThing.cs" />
     <Compile Include="Model\FlipFlopReportSenderFactory.cs" />
     <Compile Include="Model\IRepository.cs" />

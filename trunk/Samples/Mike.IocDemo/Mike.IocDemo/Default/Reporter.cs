@@ -19,7 +19,7 @@ namespace Mike.IocDemo.Default
             var reports = reportBuilder.CreateReports();
             foreach (var report in reports)
             {
-                logger.Log(string.Format("Sending report {0}", report.Name));
+                logger.Log(string.Format("Sending report {0}", report.Text));
                 reportSender.Send(report);    
             }
         }
