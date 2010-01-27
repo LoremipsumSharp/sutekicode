@@ -47,6 +47,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -99,7 +103,6 @@
     <Compile Include="Model\SmsReportSenderFactory.cs" />
     <Compile Include="Model\Thing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Default\Reporter.cs" />
     <Compile Include="Model\Report.cs" />
     <Compile Include="Model\ReportBuilder.cs" />
     <Compile Include="Model\SmsReportSender.cs" />
