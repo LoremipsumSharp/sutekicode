@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Net.Mail;
+using log4net;
+using log4net.Config;
 using Mike.IocDemo.Db;
 using Mike.IocDemo.Model;
 
@@ -9,10 +11,12 @@ namespace Mike.IocDemo.Default
     public class Program
     {
         private const string GetReportsSQL = @"select Text, ShouldSend from IocDemo..Report";
-        private const string SmtpServer = @"localhost";
 
         public static void Main()
         {
+            BasicConfigurator.Configure();
+            var log = LogManager.GetLogger(typeof(Program));
+
             var reports = new List<Report>();
 
             using (var connection = new SqlConnection(DatabaseCreator.ConnectionString))
@@ -35,7 +39,7 @@ namespace Mike.IocDemo.Default
                 }
             }
 
-            var smtpClient = new SmtpClient(SmtpServer);
+            var smtpClient = new SmtpClient();
             foreach (var report in reports)
             {
                 if(report.ShouldSend)
@@ -46,6 +50,7 @@ namespace Mike.IocDemo.Default
                         Body = report.Text
                     };
                     smtpClient.Send(message);
+                    log.Info(string.Format("Sent email {0}", report.Text));
                 }
             }
         }
