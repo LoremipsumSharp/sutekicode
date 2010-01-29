@@ -10,7 +10,7 @@ namespace Mike.IocDemo.Default
 {
     public class Program
     {
-        private const string GetReportsSQL = @"select Text, ShouldSend from IocDemo..Report";
+        private const string getReportsSql = @"select Text, ShouldSend from IocDemo..Report";
 
         public static void Main()
         {
@@ -24,7 +24,7 @@ namespace Mike.IocDemo.Default
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = GetReportsSQL;
+                    command.CommandText = getReportsSql;
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
