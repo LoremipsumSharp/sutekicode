@@ -4,16 +4,21 @@ namespace Mike.AdvancedWindsorTricks.Model
 {
     public class UsesThingFactory
     {
-        private readonly Func<IThing> thingFactory;
+        private readonly Func<IThing> createThing;
+        private readonly Action<IThing> releaseThing;
 
-        public UsesThingFactory(Func<IThing> thingFactory)
+        public UsesThingFactory(Func<IThing> createThing, Action<IThing> releaseThing)
         {
-            this.thingFactory = thingFactory;
+            this.createThing = createThing;
+            this.releaseThing = releaseThing;
         }
 
-        public IThing GetMeAThing()
+        public string SayHello(string name)
         {
-            return thingFactory();
+            var thing = createThing();
+            var message = thing.SayHello(name);
+            releaseThing(thing);
+            return message;
         }
     }
 }
