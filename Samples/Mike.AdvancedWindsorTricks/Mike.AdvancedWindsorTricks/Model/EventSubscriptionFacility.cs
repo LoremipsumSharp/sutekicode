@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Castle.Core;
 using Castle.Core.Configuration;
-using Castle.DynamicProxy;
 using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
 

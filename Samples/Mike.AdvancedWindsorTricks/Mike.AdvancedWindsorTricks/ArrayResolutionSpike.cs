@@ -14,7 +14,7 @@ namespace Mike.AdvancedWindsorTricks
         public void resolve_an_array_of_things()
         {
             var container = new WindsorContainer()
-                //.AddFacility<ArrayFacility>()
+                .AddFacility<ArrayFacility>()
                 .Register(
                     AllTypes
                         .Of<IThing>()
